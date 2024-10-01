@@ -1,5 +1,5 @@
 import { getMockReq, getMockRes } from '@jest-mock/express';
-import * as httpHandler from '../src/class/httphandler';
+import * as httpHandler from '../class/httphandler';
 
 const RetriesToForceTimeout = 11; // Waits a second each time, timeout is 10 sec for httphandler.
 

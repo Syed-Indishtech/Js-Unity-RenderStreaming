@@ -140,9 +140,9 @@ export class WebSocketSignaling extends EventTarget {
 
     let websocketUrl;
     if (location.protocol === "https:") {
-      websocketUrl = "wss://" + location.host;
+      websocketUrl = "wss://" + "192.168.0.213";
     } else {
-      websocketUrl = "ws://" + location.host;
+      websocketUrl = "ws://" + "192.168.0.213";
     }
 
     this.websocket = new WebSocket(websocketUrl);

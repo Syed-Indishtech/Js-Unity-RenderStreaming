@@ -39,13 +39,32 @@ window.addEventListener('resize', function () {
 }, true);
 
 window.addEventListener('beforeunload', async () => {
-  if(!renderstreaming)
+  if (!renderstreaming)
     return;
   await renderstreaming.stop();
 }, true);
+function timeout(ms) {
+  return new Promise((_, reject) => setTimeout(() => reject(new Error('Request timed out')), ms));
+}
 
+async function getConfigWithTimeout() {
+  try {
+    // Use Promise.race to enforce the 5-second timeout
+    const res = await Promise.race([
+      getServerConfig(),
+      timeout(5000) // Timeout after 5 second
+    ]);
+    console.log('Config received:', res);
+    return res; // If successful, return the config
+  } catch (error) {
+    console.error('Timeout occurred, using default config:', error.message);
+    // Define your own default configuration
+    const defaultConfig = { useWebSocket: true, startupMode: 'public', logging: 'dev' };
+    return defaultConfig;
+  }
+}
 async function setup() {
-  const res = await getServerConfig();
+  const res = await getConfigWithTimeout();
   useWebSocket = res.useWebSocket;
   showWarningIfNeeded(res.startupMode);
   showCodecSelect();

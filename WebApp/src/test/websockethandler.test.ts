@@ -1,8 +1,8 @@
 import WS from "jest-websocket-mock";
-import Answer from "../src/class/answer";
-import Candidate from "../src/class/candidate";
-import Offer from "../src/class/offer";
-import * as wsHandler from '../src/class/websockethandler';
+import Answer from "../class/answer";
+import Candidate from "../class/candidate";
+import Offer from "../class/offer";
+import * as wsHandler from '../class/websockethandler';
 
 Date.now = jest.fn(() => 1482363367071);
 
